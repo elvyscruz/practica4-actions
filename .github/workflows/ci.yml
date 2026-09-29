@@ -1,0 +1,32 @@
+name: CI - Hola Mundo
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Ejecutar Hola Mundo
+        run: node app.js
+
+      - name: Notificar a ntfy
+        if: always()
+        run: |
+          curl \
+            -H "Title: GitHub Actions - Hola Mundo" \
+            -H "Priority: default" \
+            -H "Tags: github,ci" \
+            -d "Workflow ejecutado. Estado: ${{ job.status }}" \
+            https://ntfy.sh/devops-itla

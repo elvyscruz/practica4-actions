@@ -1,0 +1,9 @@
+{
+  "name": "hola-mundo",
+  "version": "1.0.0",
+  "description": "Ejemplo de CI con GitHub Actions",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  }
+}
