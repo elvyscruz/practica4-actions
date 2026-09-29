@@ -1,4 +1,4 @@
-name: CI - Hola Mundo
+name: CI - Hola Mundo con Cowsay y actions
 
 on:
   push:
@@ -18,15 +18,23 @@ jobs:
         with:
           node-version: 22
 
+      - name: Instalar Cowsay
+        run: npm install -g cowsay
+
       - name: Ejecutar Hola Mundo
         run: node app.js
 
-      - name: Notificar a ntfy
+      - name: Generar mensaje con Cowsay
+        run: |
+          cowsay "Hola Mundo desde GitHub Actions!" > cowsay.txt
+          cat cowsay.txt
+
+      - name: Enviar Cowsay a ntfy
         if: always()
         run: |
           curl \
-            -H "Title: Ejemplo de Actions" \
+            -H "Title: GitHub Actions - Cowsay" \
             -H "Priority: default" \
-            -H "Tags: github,ci" \
-            -d "Workflow ejecutado. Estado: ${{ job.status }}" \
+            -H "Tags: github,ci,cow" \
+            --data-binary @cowsay.txt \
             https://ntfy.sh/devops-itla
