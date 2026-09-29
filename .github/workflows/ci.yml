@@ -25,7 +25,7 @@ jobs:
         if: always()
         run: |
           curl \
-            -H "Title: GitHub Actions - Hola Mundo" \
+            -H "Title: Ejemplo de Actions" \
             -H "Priority: default" \
             -H "Tags: github,ci" \
             -d "Workflow ejecutado. Estado: ${{ job.status }}" \
